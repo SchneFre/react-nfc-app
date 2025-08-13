@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/react-nfc-app/static/css/main.e6c13ad2.css",
+    "main.js": "/react-nfc-app/static/js/main.8d6bfdec.js",
+    "static/js/453.bbc23eb5.chunk.js": "/react-nfc-app/static/js/453.bbc23eb5.chunk.js",
+    "index.html": "/react-nfc-app/index.html",
+    "main.e6c13ad2.css.map": "/react-nfc-app/static/css/main.e6c13ad2.css.map",
+    "main.8d6bfdec.js.map": "/react-nfc-app/static/js/main.8d6bfdec.js.map",
+    "453.bbc23eb5.chunk.js.map": "/react-nfc-app/static/js/453.bbc23eb5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.8d6bfdec.js"
+  ]
+}
