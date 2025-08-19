@@ -1,0 +1,28 @@
+
+import mongoose from "mongoose";
+
+const gymMachineSchema = new mongoose.Schema({
+  machine_name: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  muscle_groups: {
+    type: [String], // Array of strings
+    required: true
+  },
+  exercise_type: {
+    type: String,
+    enum: ["Strength", "Cardio"], // Only allow these two types
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  }
+});
+const GymMachine = mongoose.model("GymMachine", gymMachineSchema);
+
+
+export default GymMachine;
+// module.exports = mongoose.model("NfcTag", NfcTagSchema);

@@ -1,0 +1,26 @@
+// models/Session.js
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
+const SetSchema = new mongoose.Schema({
+  weight: { type: Number, required: true },
+  repetition: { type: Number, required: true },
+  duration: { type: Number, required: true },
+  pause: { type: Number, required: true },
+});
+
+const MachineWorkoutSchema = new mongoose.Schema({
+  machine_id: {  type: String, required: true, ref: "Machine" },
+  sets: { type: [SetSchema], required: true },
+});
+
+const SessionSchema = new mongoose.Schema({
+  session_id: { type: String, required: true, unique: true },
+  user_id: { type: String, required: true },
+  start_datetime: { type: Date, required: true },
+  duration_min: { type: Number, required: true },
+  machine_workouts: { type: [MachineWorkoutSchema], required: false },
+});
+
+const Session = mongoose.model("Session", SessionSchema, "gymsessions");
+export default Session;

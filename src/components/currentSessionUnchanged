@@ -1,0 +1,50 @@
+  <div className="exercise-input">
+       
+        {/* Column headers */}
+        <div className="set-row header-row">
+            <span className="set-header"></span>
+            <span className="column-header">Weight (kg)</span>
+            <span className="column-header">Reps</span>
+        </div>
+
+        {/* Set rows */}
+        {sets.map((set, index) => (
+            <div className="set-row" key={index}>
+            <span className="set-label">Set {index + 1}</span>
+            <input
+                type="number"
+                value={set.weight}
+                onChange={(e) => handleChange(index, "weight", e.target.value)}
+            />
+            <input
+                type="number"
+                value={set.reps}
+                onChange={(e) => handleChange(index, "reps", e.target.value)}
+            />
+            </div>
+        ))}
+
+        {/* Rest control */}
+        <div className="rest-controls">
+            <button
+            className="start-btn"
+            onClick={() => {
+                if (isResting) {
+                stopRestAndAddSet(); // stop rest and insert new set with previous weight
+                setIsResting(false)
+                } else {
+                setIsResting(true); // start rest
+                }
+            }}
+            >
+            {isResting ? "Stop Rest" : "Start Rest"}
+            </button>
+
+            {isResting && (
+            <p className="rest-time">
+                Rest Time: {Math.floor(restTime / 60)}:
+                {("0" + (restTime % 60)).slice(-2)}
+            </p>
+            )}
+        </div>
+        </div>

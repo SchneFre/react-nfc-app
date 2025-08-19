@@ -1,0 +1,13 @@
+
+import mongoose from "mongoose";
+
+const NfcTagSchema = new mongoose.Schema({
+  RFID_uuid: { type: String, required: true, unique: true },
+  machineID: { type: String }, 
+  registeredAt: Date
+});
+
+const NfcTag = mongoose.model("NfcTag", NfcTagSchema);
+
+export default NfcTag;
+// module.exports = mongoose.model("NfcTag", NfcTagSchema);

@@ -1,49 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import './styles.css';
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import NFCReader from "./components/NFCReader";
+import AboutPage from "./components/AboutPage"; 
+import TrainingSession from "./components/TrainingSession"; 
+import Auth from "./components/Auth"; 
 
 function App() {
-  const [uuid, setUuid] = useState("");
-  const [error, setError] = useState("");
+  const [user, setUser] = useState(null);
 
-  const readNfc = async () => {
-    if ("NDEFReader" in window) {
-      try {
-        const ndef = new window.NDEFReader();
-        //const ndef = new NDEFReader();
-        await ndef.scan();
-
-        ndef.onreading = (event) => {
-          const { serialNumber } = event;
-          setUuid(serialNumber);
-        };
-
-        ndef.onreadingerror = () => {
-          setError("Failed to read NFC tag.");
-        };
-      } catch (err) {
-        setError(`Error: ${err.message}`);
-      }
-    } else {
-      setError("Web NFC is not supported on this device/browser.");
-    }
-  };
-
+   useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    console.log(storedUser)
+    if (storedUser) setUser(JSON.parse(storedUser));
+  }, []);
+  
   return (
-    <div style={{ padding: "2rem", fontFamily: "Arial" }}>
-      <h1>NFC Reader</h1>
-      <button onClick={readNfc} style={{ padding: "0.5rem 1rem" }}>
-        Scan NFC Chip
-      </button>
-      {uuid && (
-        <p>
-          <strong>UUID:</strong> {uuid}
-        </p>
-      )}
-      {error && (
-        <p style={{ color: "red" }}>
-          <strong>Error:</strong> {error}
-        </p>
-      )}
-    </div>
+    <BrowserRouter>
+      <nav>
+        <NavLink to="/" end>Workout</NavLink>
+        <NavLink to="/about">About</NavLink>
+        {user && <NavLink to="/newtags">New Tags</NavLink>}
+        <NavLink to="/auth">Login</NavLink>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<TrainingSession />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/newtags" element={<NFCReader />} />
+        <Route path="/auth" element={<Auth setUser={setUser} />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
